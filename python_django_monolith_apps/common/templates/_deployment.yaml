@@ -1,0 +1,58 @@
+{{- define "common.deployment" -}}
+apiVersion: apps/v1
+kind: Deployment
+{{ template "common.metadata" . }}
+spec:
+  replicas: {{ int .Values.replicaCount | default 2 }}
+  selector:
+    matchLabels:
+      {{- include "common.labels" . | nindent 6 }}
+  template:
+{{- include "common.metadata" . | nindent 4 }}
+    spec:
+      containers:
+        - name: {{ include "common.name" . }}
+          image: "{{ .Values.image.repository }}/{{ template "common.name" . }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          ports:
+            - name: "http-{{ include "common.containerPort" . }}"
+              containerPort: {{ int .Values.containerPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ int .Values.containerPort}}
+              initialDelaySeconds: 15
+              periodSeconds: 300
+              timeoutSeconds: 10
+              successThreshold: 1
+              failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ int .Values.containerPort}}
+              initialDelaySeconds: 10
+              periodSeconds: 60
+              timeoutSeconds: 10
+              successThreshold: 1
+              failureThreshold: 3
+          resources:
+            requests:
+              memory: {{ .Values.resourceRequestMemory | default "100Mi" }}
+              cpu: {{ .Values.resourceRequestCPU | default "50m" }}
+            limit:
+              memory: {{ int .Values.resourceLimitMemory | default "150Mi" }}
+              cpu: {{ int .Values.resourceLimitCPU | default "100m" }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+{{- end -}}

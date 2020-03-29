@@ -1,0 +1,5 @@
+apiVersion: v2
+name: common
+description: A chart containing common templates for a python Django monolith application
+type: library
+version: 0.1.0

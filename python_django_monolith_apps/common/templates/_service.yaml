@@ -1,0 +1,14 @@
+{{- define "common.service" -}}
+apiVersion: v1
+kind: Service
+{{ template "common.metadata" . }}
+spec:
+  type: "clusterIP"
+  ports:
+    - port: {{ int .Values.containerPort }}
+      targetPort: "http-{{ include "common.containerPort" . }}"
+      protocol: "TCP"
+      name: "http-{{ include "common.name" . }}"
+  selector:
+    {{- include "common.labels" . | nindent 4 -}}
+{{- end -}}
