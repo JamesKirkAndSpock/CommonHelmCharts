@@ -5,3 +5,6 @@ type: library
 version: 0.1.0
 home: https://github.com/JamesKirkAndSpock/CommonHelmCharts/
 appVersion: 0.1.0
+maintainers:
+    - name: JamesKirkAndSpock
+
