@@ -11,7 +11,12 @@ jobs:
           name: Lint Python Django Common Helm Charts
           working_directory: ~/CommonHelmCharts/python_django_monolith_apps
           command: |
-            ct lint --charts common
+            if [[ -n "${CIRCLE_PR_NUMBER}" && "${CIRCLE_BRANCH}" == "master" ]]; then
+              echo "Validating Version Increment for release"
+              ct lint --chart-dirs common --check-version-increment
+            else
+              ct lint --charts common
+            fi
 
 workflows:
   version: 2
