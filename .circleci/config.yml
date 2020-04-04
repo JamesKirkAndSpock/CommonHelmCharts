@@ -9,9 +9,8 @@ jobs:
       - checkout
       - run:
           name: Lint Python Django Common Helm Charts
+          working_directory: ~/CommonHelmCharts/python_django_monolith_apps
           command: |
-            cd python_django_monolith_apps
-            ls
             ct lint --charts common
 
 workflows:
