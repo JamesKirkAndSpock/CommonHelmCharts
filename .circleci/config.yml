@@ -10,7 +10,7 @@ jobs:
       - run:
           name: Lint Python Django Common Helm Charts
           command: |
-            ct lint --chart-dirs common
+            ct lint --chart-dirs common --all
 
 workflows:
   version: 2
