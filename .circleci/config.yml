@@ -11,6 +11,7 @@ jobs:
           name: Lint Python Django Common Helm Charts
           command: |
             cd python_django_monolith_apps
+            ls
             ct lint --charts common
 
 workflows:
