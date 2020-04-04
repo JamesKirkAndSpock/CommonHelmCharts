@@ -4,7 +4,7 @@ jobs:
   lint_helm_charts:
     working_directory: ~/CommonHelmCharts
     docker:
-      - image: quay.io/helmpack/chart-testing:v2.4.1
+      - image: quay.io/helmpack/chart-testing:v3.0.0-rc.1
     steps:
       - checkout
       - run:
