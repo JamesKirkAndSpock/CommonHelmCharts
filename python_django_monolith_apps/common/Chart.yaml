@@ -3,3 +3,7 @@ name: common
 description: A chart containing common templates for a python Django monolith application
 type: library
 version: 0.1.0
+home: https://github.com/JamesKirkAndSpock/CommonHelmCharts/
+appVersion: 0.1.0
+maintainers:
+    - name: JamesKirkAndSpock
