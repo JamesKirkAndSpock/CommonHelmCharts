@@ -12,7 +12,6 @@ jobs:
           command: |
             ct lint --char-dirs common
 
-
 workflows:
   version: 2
   commonhelmcharts:
