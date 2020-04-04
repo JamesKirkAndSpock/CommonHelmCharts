@@ -1,0 +1,20 @@
+version: 2.1
+
+jobs:
+  lint_helm_charts:
+    working_directory: ~/CommonHelmCharts/python_django_monolith_apps
+    docker:
+      - image: quay.io/helmpack/chart-testing:v2.4.1
+    steps:
+      - checkout
+      - run:
+          name: Lint Helm Charts
+          command: |
+            ct lint --char-dirs common
+
+
+workflows:
+  version: 2
+  commonhelmcharts:
+    jobs:
+    - lint_helm_charts
