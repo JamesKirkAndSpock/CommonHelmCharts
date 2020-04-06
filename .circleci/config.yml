@@ -42,6 +42,11 @@ jobs:
           working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
           command: |
             cr index
+            git config user.email "circleci@circleci.com"
+            git config user.name "CircleCI"
+            git add index.yaml
+            git commit -m "[skip ci] add release asset to index file for ${CIRCLE_BRANCH}"
+            git push
 
 workflows:
   version: 2
