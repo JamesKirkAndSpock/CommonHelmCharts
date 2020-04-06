@@ -36,7 +36,7 @@ jobs:
           name: Upload Common Chart
           working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
           command: |
-            ct --help
+            cr --help
 
 workflows:
   version: 2
