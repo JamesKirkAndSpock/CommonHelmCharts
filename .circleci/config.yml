@@ -46,7 +46,7 @@ jobs:
             git config user.name "CircleCI"
             git add index.yaml
             git commit -m "[skip ci] add release asset to index file for ${CIRCLE_BRANCH}"
-            git push
+            git push --set-upstream origin ${CIRCLE_BRANCH}
 
 workflows:
   version: 2
