@@ -23,7 +23,9 @@ jobs:
           name: Package Common Chart
           working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
           command: |
-              ls
+            mkdir packages
+            helm package . -d packages
+            ls packages
 
 workflows:
   version: 2
