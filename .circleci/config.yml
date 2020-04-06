@@ -37,6 +37,11 @@ jobs:
           working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
           command: |
             cr upload
+      - run:
+          name: Index Common Chart Commit and Push to Git
+          working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
+          command: |
+            cr index
 
 workflows:
   version: 2
