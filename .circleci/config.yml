@@ -13,8 +13,21 @@ jobs:
           command: |
               ct lint --charts common
 
+  package_upload_common_helm_chart:
+    working_directory: ~/CommonHelmCharts
+    docker:
+      - image: quay.io/helmpack/chart-releaser:v1.0.0-beta.1
+    steps:
+      - checkout
+      - run:
+          name: Package Common Chart
+          working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
+          command: |
+              ls
+
 workflows:
   version: 2
   commonhelmcharts:
     jobs:
     - lint_helm_charts
+    - package_upload_common_helm_chart
