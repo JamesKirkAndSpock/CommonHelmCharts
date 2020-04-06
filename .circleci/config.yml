@@ -43,4 +43,11 @@ workflows:
   commonhelmcharts:
     jobs:
     - lint_helm_charts
-    - package_upload_common_helm_chart
+    - package_upload_common_helm_chart:
+        requires:
+        - lint_helm_charts
+        filters:
+          branches:
+            only:
+            - /release-[0-9\.]+/
+            - /hotfix-[0-9\.]+/
