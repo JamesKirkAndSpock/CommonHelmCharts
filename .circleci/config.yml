@@ -20,12 +20,23 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install the Chart Release Package
+          command: |
+            mkdir ${HOME}/bin
+            cd ${HOME}/bin && wget https://github.com/helm/chart-releaser/releases/download/v1.0.0-beta.1/chart-releaser_1.0.0-beta.1_linux_amd64.tar.gz
+            tar xvzf chart-releaser_1.0.0-beta.1_linux_amd64.tar.gz
+            echo 'export PATH=$PATH:${HOME}/bin' >> $BASH_ENV
+      - run:
           name: Package Common Chart
           working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
           command: |
             mkdir packages
             helm package . -d packages
-            ls packages
+      - run:
+          name: Upload Common Chart
+          working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
+          command: |
+            ct --help
 
 workflows:
   version: 2
