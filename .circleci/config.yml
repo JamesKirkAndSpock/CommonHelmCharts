@@ -16,7 +16,7 @@ jobs:
   package_upload_common_helm_chart:
     working_directory: ~/CommonHelmCharts
     docker:
-      - image: quay.io/helmpack/chart-releaser:v1.0.0-beta.1
+      - image: quay.io/reactiveops/ci-images:v11-alpine
     steps:
       - checkout
       - run:
