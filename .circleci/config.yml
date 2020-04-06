@@ -37,6 +37,16 @@ jobs:
           working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
           command: |
             cr upload
+      - run:
+          name: Index Common Chart Commit and Push to Git
+          working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
+          command: |
+            cr index
+            git config user.email "circleci@circleci.com"
+            git config user.name "CircleCI"
+            git add index.yaml
+            git commit -m "[skip ci] add release asset to index file for ${CIRCLE_BRANCH}"
+            git push --set-upstream origin ${CIRCLE_BRANCH}
 
 workflows:
   version: 2
