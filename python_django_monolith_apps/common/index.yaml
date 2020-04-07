@@ -2,12 +2,18 @@ apiVersion: v1
 entries:
   common:
   - apiVersion: v2
-    created: "2020-03-29T18:25:12.737022+03:00"
+    appVersion: 0.1.0
+    created: "2020-04-07T04:28:38.356215465Z"
     description: A chart containing common templates for a python Django monolith
-      application
-    digest: 9b7d0137239806659cc10750ada8690439023ad5c47c51cd8e98b62be66709bd
+      application. This version deploys a Kubernetes Service and a Kubernetes Deployment
+      library object.
+    digest: 0c27928bff36a1c80cc9e6ad5b2ed702ceb03afff03e0e2c22434f8e440c13f8
+    home: https://github.com/JamesKirkAndSpock/CommonHelmCharts/
+    maintainers:
+    - name: JamesKirkAndSpock
     name: common
+    type: library
     urls:
     - https://github.com/JamesKirkAndSpock/CommonHelmCharts/releases/download/common-0.1.0/common-0.1.0.tgz
     version: 0.1.0
-generated: "2020-03-29T18:25:11.671899+03:00"
+generated: "2020-04-07T04:28:38.27995297Z"
