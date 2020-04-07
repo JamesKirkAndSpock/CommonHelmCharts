@@ -1,10 +1,9 @@
 apiVersion: v2
 name: common
-description: "A chart containing common templates for a python Django monolith application.
-This version deploys a Kubernetes Service and a Kubernetes Deployment library object."
+description: "This bug fix fixes an error on the deployment container's spec. It changes the resources definition key from 'limit' to 'limits'"
 type: library
-version: 0.1.0
+version: 0.1.1
 home: https://github.com/JamesKirkAndSpock/CommonHelmCharts/
-appVersion: 0.1.0
+appVersion: 0.1.1
 maintainers:
     - name: JamesKirkAndSpock
