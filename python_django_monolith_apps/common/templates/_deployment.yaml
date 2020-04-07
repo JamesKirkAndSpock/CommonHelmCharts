@@ -40,7 +40,7 @@ spec:
             requests:
               memory: {{ .Values.resourceRequestMemory | default "100Mi" }}
               cpu: {{ .Values.resourceRequestCPU | default "50m" }}
-            limit:
+            limits:
               memory: {{ int .Values.resourceLimitMemory | default "150Mi" }}
               cpu: {{ int .Values.resourceLimitCPU | default "100m" }}
     {{- with .Values.nodeSelector }}
