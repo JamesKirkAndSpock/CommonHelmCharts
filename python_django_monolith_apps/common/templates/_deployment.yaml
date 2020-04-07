@@ -22,20 +22,20 @@ spec:
             httpGet:
               path: /healthz
               port: {{ int .Values.containerPort}}
-              initialDelaySeconds: 15
-              periodSeconds: 300
-              timeoutSeconds: 10
-              successThreshold: 1
-              failureThreshold: 3
+            initialDelaySeconds: 15
+            periodSeconds: 300
+            timeoutSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
           readinessProbe:
             httpGet:
               path: /healthz
               port: {{ int .Values.containerPort}}
-              initialDelaySeconds: 10
-              periodSeconds: 60
-              timeoutSeconds: 10
-              successThreshold: 1
-              failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 60
+            timeoutSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
           resources:
             requests:
               memory: {{ .Values.resourceRequestMemory | default "100Mi" }}

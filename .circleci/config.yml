@@ -1,0 +1,63 @@
+version: 2.1
+
+jobs:
+  lint_helm_charts:
+    working_directory: ~/CommonHelmCharts
+    docker:
+      - image: quay.io/helmpack/chart-testing:v3.0.0-rc.1
+    steps:
+      - checkout
+      - run:
+          name: Lint Python Django Common Helm Charts
+          working_directory: ~/CommonHelmCharts/python_django_monolith_apps
+          command: |
+              ct lint --charts common
+
+  package_upload_common_helm_chart:
+    working_directory: ~/CommonHelmCharts
+    docker:
+      - image: quay.io/reactiveops/ci-images:v11-alpine
+    steps:
+      - checkout
+      - run:
+          name: Install the Chart Release Package
+          command: |
+            mkdir ${HOME}/bin
+            cd ${HOME}/bin && wget https://github.com/helm/chart-releaser/releases/download/v1.0.0-beta.1/chart-releaser_1.0.0-beta.1_linux_amd64.tar.gz
+            tar xvzf chart-releaser_1.0.0-beta.1_linux_amd64.tar.gz
+            echo 'export PATH=$PATH:${HOME}/bin' >> $BASH_ENV
+      - run:
+          name: Package Common Chart
+          working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
+          command: |
+            mkdir packages
+            helm package . -d packages
+      - run:
+          name: Upload Common Chart
+          working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
+          command: |
+            cr upload
+      - run:
+          name: Index Common Chart Commit and Push to Git
+          working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
+          command: |
+            cr index
+            git config user.email "circleci@circleci.com"
+            git config user.name "CircleCI"
+            git add index.yaml
+            git commit -m "[skip ci] add release asset to index file for ${CIRCLE_BRANCH}"
+            git push --set-upstream origin ${CIRCLE_BRANCH}
+
+workflows:
+  version: 2
+  commonhelmcharts:
+    jobs:
+    - lint_helm_charts
+    - package_upload_common_helm_chart:
+        requires:
+        - lint_helm_charts
+        filters:
+          branches:
+            only:
+            - /release-[0-9\.]+/
+            - /hotfix-[0-9\.]+/
