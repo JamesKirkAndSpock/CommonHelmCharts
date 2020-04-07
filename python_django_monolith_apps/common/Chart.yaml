@@ -1,6 +1,7 @@
 apiVersion: v2
 name: common
-description: A chart containing common templates for a python Django monolith application
+description: "A chart containing common templates for a python Django monolith application.
+This version deploys a Kubernetes Service and a Kubernetes Deployment object."
 type: library
 version: 0.1.0
 home: https://github.com/JamesKirkAndSpock/CommonHelmCharts/
