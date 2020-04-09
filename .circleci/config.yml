@@ -41,12 +41,16 @@ jobs:
           name: Index Common Chart Commit and Push to Git
           working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
           command: |
-            cr index
+            cr index 2>&1 | tee /tmp/index.out
+            export GIT_TAG_VERSION=$(cat /tmp/index.out | grep -Eo '\scommon-\d+\.\d+\.\d+' | tr -d ' ')
             git config user.email "circleci@circleci.com"
             git config user.name "CircleCI"
             git add index.yaml
             git commit -m "[skip ci] add release asset to index file for ${CIRCLE_BRANCH}"
+            git push origin :"${GIT_TAG_VERSION}"
+            git tag "${GIT_TAG_VERSION}"
             git push --set-upstream origin ${CIRCLE_BRANCH}
+            git push origin "${GIT_TAG_VERSION}"
 
 workflows:
   version: 2
