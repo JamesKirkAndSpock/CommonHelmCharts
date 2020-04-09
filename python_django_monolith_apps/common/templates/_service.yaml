@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 {{ template "common.metadata" . }}
 spec:
-  type: "clusterIP"
+  type: "ClusterIP"
   ports:
     - port: {{ int .Values.containerPort }}
       targetPort: "http-{{ include "common.containerPort" . }}"
