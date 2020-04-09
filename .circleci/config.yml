@@ -1,26 +1,5 @@
 version: 2.1
 
-commands:
-  package_upload_common_helm_chart:
-    steps:
-      - run:
-          name: Install the Chart Release Package
-          command: |
-            mkdir ${HOME}/bin
-            cd ${HOME}/bin && wget https://github.com/helm/chart-releaser/releases/download/v1.0.0-beta.1/chart-releaser_1.0.0-beta.1_linux_amd64.tar.gz https://github.com/github/hub/releases/download/v2.14.2/hub-linux-amd64-2.14.2.tgz
-            tar xvzf chart-releaser_1.0.0-beta.1_linux_amd64.tar.gz
-            tar xvzf hub-linux-amd64-2.14.2.tgz
-            sudo ./hub-linux-amd64-2.14.2/install
-            rm -rf hub-linux-arm64-2.14.2 hub-linux-arm64-2.14.2.tgz chart-releaser_1.0.0-beta.1_linux_amd64.tar.gz
-            echo 'export PATH=$PATH:${HOME}/bin' >> $BASH_ENV
-      - run:
-          name: Package and Upload Common Chart
-          working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
-          command: |
-            mkdir packages
-            helm package . -d packages
-            cr upload
-
 jobs:
   lint_helm_charts:
     working_directory: ~/CommonHelmCharts
@@ -40,32 +19,42 @@ jobs:
       - image: quay.io/reactiveops/ci-images:v11-stretch
     steps:
       - checkout
-      - package_upload_common_helm_chart
-
-  prepare_release_index_file:
-    working_directory: ~/CommonHelmCharts
-    docker:
-      - image: quay.io/reactiveops/ci-images:v11-stretch
-    steps:
-      - checkout
-      - package_upload_common_helm_chart
+      - run:
+          name: Install the Chart Release Package
+          command: |
+            mkdir ${HOME}/bin
+            cd ${HOME}/bin && wget https://github.com/helm/chart-releaser/releases/download/v1.0.0-beta.1/chart-releaser_1.0.0-beta.1_linux_amd64.tar.gz https://github.com/github/hub/releases/download/v2.14.2/hub-linux-amd64-2.14.2.tgz
+            tar xvzf chart-releaser_1.0.0-beta.1_linux_amd64.tar.gz
+            tar xvzf hub-linux-amd64-2.14.2.tgz
+            sudo ./hub-linux-amd64-2.14.2/install
+            rm -rf hub-linux-arm64-2.14.2 hub-linux-arm64-2.14.2.tgz chart-releaser_1.0.0-beta.1_linux_amd64.tar.gz
+            echo 'export PATH=$PATH:${HOME}/bin' >> $BASH_ENV
+      - run:
+          name: Package and Upload Common Chart
+          working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
+          command: |
+            mkdir packages
+            helm package . -d packages
+            cr upload
       - run:
           name: Index and Push to Git
           working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
           command: |
             cr index 2>&1 | tee /tmp/index.out
+            git fetch origin develop && git checkout develop
             git config user.email "circleci@circleci.com"
             git config user.name "CircleCI"
             git add index.yaml
-            git commit -m "[skip ci] add release asset to index file for ${CIRCLE_BRANCH}"
-            git push --set-upstream origin "${CIRCLE_BRANCH}"
+            git commit -m "add release asset to index file for ${CIRCLE_BRANCH}"
+            git push --set-upstream origin develop
       - run:
-          name: Delete Tag, Delete Release
+          name: Delete Tag, Delete Release and Upload Chart Again
           working_directory: ~/CommonHelmCharts/python_django_monolith_apps/common
           command: |
             export CHART_TAG=$(cat /tmp/index.out | grep -Po '\scommon-\d+\.\d+\.\d+' | tr -d ' ')
             hub release delete "${CHART_TAG}"
             git push origin :"${CHART_TAG}"
+            cr upload
 
 workflows:
   version: 2
@@ -80,10 +69,3 @@ workflows:
             only:
             - /release-[0-9\.]+/
             - /hotfix-[0-9\.]+/
-    - prepare_release_index_file:
-        requires:
-        - lint_helm_charts
-        filters:
-          branches:
-            only:
-            - /release-prep-[0-9\.]+/
