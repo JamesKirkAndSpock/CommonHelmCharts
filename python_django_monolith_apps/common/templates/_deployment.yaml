@@ -36,6 +36,10 @@ spec:
             timeoutSeconds: 10
             successThreshold: 1
             failureThreshold: 3
+        {{- if .Values.env }}    
+          env:
+{{ toYaml .Values.env | trim | indent 12 }}
+        {{- end }}
           resources:
             requests:
               memory: {{ .Values.resourceRequestMemory | default "100Mi" }}
