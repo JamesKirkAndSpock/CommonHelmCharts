@@ -1,0 +1,19 @@
+{{- define "common.ingress" -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: "{{ required "The name for the ingress should be provided." .Values.ingress.name }}"
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: "{{ required "The global static IP name should be provided for Ingress" .Values.ingress.globalStaticIpName }}"
+spec:
+  rules:
+  {{- range .Values.hosts }}
+    - host: "{{ .url }}"
+      http:
+        paths:
+          - backend:
+              serviceName: "{{ required "The serviceName should be provided." .serviceName }}"
+              servicePort: {{ required "The servicePort should be provided." .servicePort }}
+  {{- end }}
+{{- end -}}
