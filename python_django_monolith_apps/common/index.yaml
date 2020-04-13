@@ -2,16 +2,16 @@ apiVersion: v1
 entries:
   common:
   - apiVersion: v2
-    appVersion: 0.5.2
-    created: "2020-04-13T17:32:15.111796542Z"
-    description: Fix typo on API version
-    digest: f2122a811c163574d80df1d86206b38347b63377e15a7335a426bb15cab11e38
+    appVersion: 0.5.3
+    created: "2020-04-13T19:03:56.631739797Z"
+    description: Fix secret name on Ingress
+    digest: e8fa3951d773e32fcb326d67ad914898fa31b0ca87ca71c8d0970b8bcfbc06bb
     home: https://github.com/JamesKirkAndSpock/CommonHelmCharts/
     maintainers:
     - name: JamesKirkAndSpock
     name: common
     type: library
     urls:
-    - https://github.com/JamesKirkAndSpock/CommonHelmCharts/releases/download/common-0.5.2/common-0.5.2.tgz
-    version: 0.5.2
-generated: "2020-04-13T17:32:15.033188484Z"
+    - https://github.com/JamesKirkAndSpock/CommonHelmCharts/releases/download/common-0.5.3/common-0.5.3.tgz
+    version: 0.5.3
+generated: "2020-04-13T19:03:56.552664042Z"
