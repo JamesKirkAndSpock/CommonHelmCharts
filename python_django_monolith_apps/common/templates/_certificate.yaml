@@ -1,0 +1,15 @@
+{{- define "common.certificate" -}}
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: "{{ required "The name for the certificate should be provided." .Values.certificate.name }}"
+spec:
+  secretName: {{ .Values.certificate.name }}-ssl-cert
+  dnsNames:
+  {{- range .Values.hosts }}
+    - {{ .url }}
+  {{- end }}
+  issuerRef:
+    kind: ClusterIssuer
+    name: {{ .Values.issuerRefName }}
+{{- end }}
