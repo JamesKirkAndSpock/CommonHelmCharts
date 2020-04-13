@@ -1,9 +1,9 @@
 apiVersion: v2
 name: common
-description: "Add a Certificate Object"
+description: "Fix typo on API version"
 type: library
-version: 0.5.1
+version: 0.5.2
 home: https://github.com/JamesKirkAndSpock/CommonHelmCharts/
-appVersion: 0.5.1
+appVersion: 0.5.2
 maintainers:
     - name: JamesKirkAndSpock
