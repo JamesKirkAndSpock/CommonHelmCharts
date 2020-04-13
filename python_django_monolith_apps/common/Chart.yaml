@@ -1,9 +1,9 @@
 apiVersion: v2
 name: common
-description: "Fix typo on API version"
+description: "Fix secret name on Ingress"
 type: library
-version: 0.5.2
+version: 0.5.3
 home: https://github.com/JamesKirkAndSpock/CommonHelmCharts/
-appVersion: 0.5.2
+appVersion: 0.5.3
 maintainers:
     - name: JamesKirkAndSpock

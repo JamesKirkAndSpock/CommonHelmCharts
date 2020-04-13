@@ -12,7 +12,7 @@ spec:
     {{- range .Values.hosts }}
       - "{{ .url }}"
     {{- end }}
-      secretName: "{{ required "The secretName should be provided." .Values.certificate.name }}"
+      secretName: {{ required "The secretName should be provided." .Values.certificate.name }}-ssl-cert
   rules:
   {{- range .Values.hosts }}
     - host: "{{ .url }}"
