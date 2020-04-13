@@ -2,16 +2,16 @@ apiVersion: v1
 entries:
   common:
   - apiVersion: v2
-    appVersion: 0.5.1
-    created: "2020-04-13T17:14:29.136377207Z"
-    description: Add a Certificate Object
-    digest: ace3bfb5b7e7fee61b0765269fec3172fef7c5a18895b3918cad56c60974e490
+    appVersion: 0.5.2
+    created: "2020-04-13T17:32:15.111796542Z"
+    description: Fix typo on API version
+    digest: f2122a811c163574d80df1d86206b38347b63377e15a7335a426bb15cab11e38
     home: https://github.com/JamesKirkAndSpock/CommonHelmCharts/
     maintainers:
     - name: JamesKirkAndSpock
     name: common
     type: library
     urls:
-    - https://github.com/JamesKirkAndSpock/CommonHelmCharts/releases/download/common-0.5.1/common-0.5.1.tgz
-    version: 0.5.1
-generated: "2020-04-13T17:14:29.060025695Z"
+    - https://github.com/JamesKirkAndSpock/CommonHelmCharts/releases/download/common-0.5.2/common-0.5.2.tgz
+    version: 0.5.2
+generated: "2020-04-13T17:32:15.033188484Z"
