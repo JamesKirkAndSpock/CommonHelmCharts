@@ -2,17 +2,17 @@ apiVersion: v1
 entries:
   common:
   - apiVersion: v2
-    appVersion: 0.3.1
-    created: "2020-04-11T23:00:04.97452899Z"
+    appVersion: 0.4.1
+    created: "2020-04-13T13:33:51.333814193Z"
     description: This bug fix fixes an error on the deployment container's spec. It
       changes the resources definition key from 'limit' to 'limits'
-    digest: 38ac0ec678743c2dc1c0f8e0c47bf757e369c3b6e744d95f5e34250ad255674a
+    digest: 39a2f7fe094313d174d34bf7d14135ed41c9fe495f408658a2a6cb32b32e1a19
     home: https://github.com/JamesKirkAndSpock/CommonHelmCharts/
     maintainers:
     - name: JamesKirkAndSpock
     name: common
     type: library
     urls:
-    - https://github.com/JamesKirkAndSpock/CommonHelmCharts/releases/download/common-0.3.1/common-0.3.1.tgz
-    version: 0.3.1
-generated: "2020-04-11T23:00:04.896663621Z"
+    - https://github.com/JamesKirkAndSpock/CommonHelmCharts/releases/download/common-0.4.1/common-0.4.1.tgz
+    version: 0.4.1
+generated: "2020-04-13T13:33:51.234377916Z"
